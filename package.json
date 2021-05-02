@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/13ace37/osu-bm/issues"
   },
-  "homepage": "https://github.com/13ace37/osu-bm#readme"
+  "homepage": "https://github.com/13ace37/osu-bm#readme",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "cli-select": "^1.1.2",
+    "open": "^8.0.7",
+    "win-select-file": "^1.0.2",
+    "win-select-folder": "^1.0.1"
+  }
 }
