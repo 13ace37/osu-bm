@@ -36,6 +36,8 @@ this one creates two files in your mapfolder.
 
 ### Importing maps
 
+each map takes 5sec to import to "try" to prevent game crashes
+
 - choose a `.txt` file containing map links separated by `\n` or `\r\n`
 - matching regex for importing `/^https?:\/\/osu\.ppy\.sh(\/(b|s)\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm`
 

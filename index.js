@@ -16,6 +16,8 @@ const M = {
 
 const F = {};
 
+F.sleep = ms => new Promise(res => setTimeout(res, ms))
+
 F.fetchDir = (dir) => {
     dir = M.path.join(dir, "Songs");
     if (!M.fs.existsSync(dir)) return console.error(new Error("Invalid osu! dir provided or Songs folder does no exists"));
@@ -61,17 +63,24 @@ F.handleMaplist = (mapList, mapListDir, mapListName) => {
         },
         outputStream: process.stdout,
         inputStream: process.stdin,
-    }).then((response) => {
+    }).then(async (response) => {
         switch (response.id) {
             case 1:
-                mapList.forEach(map => {
-                    if (map.match(/^https?:\/\/osu\.ppy\.sh(\/b\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm)) M.open("osu://b/" + map.split("/")[map.split("/").length - 1])
-                    else M.open("osu://dl/" + map.split("/")[map.split("/").length - 1])
-                });
+                if (mapList.length >= 10) console.log("WARNING: You are trying to import more than 10 maps at once. Delaying input time!\nApprox. import time: " + Math.round(mapList.length * 5 / 60) + " minute(s).");
+                for (var i = mapList.length - 1; i >= 0; i--) {
+                    await F.sleep(5000);
+                    console.log(mapList[i]);
+                    if (mapList[i].match(/^https?:\/\/osu\.ppy\.sh(\/b\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm)) M.open("osu://b/" + mapList[i].split("/")[mapList[i].split("/").length - 1])
+                    else M.open("osu://dl/" + mapList[i].split("/")[mapList[i].split("/").length - 1])
+                }
                 break;
             default:
                 let data = "";
-                mapList.forEach(map => data += `<a href="${"osu://b/" + map.split("/")[map.split("/").length - 1]}">${map.split("/")[map.split("/").length - 1]}</a></br>`);
+                let n = "dl";
+                mapList.forEach(map => {
+                    if (map.match(/^https?:\/\/osu\.ppy\.sh(\/b\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm)) n = "b";
+                    data += `<a href="${"osu://"+n+"/" + map.split("/")[map.split("/").length - 1]}">${map.split("/")[map.split("/").length - 1]}</a></br>`
+                });
                 M.fs.writeFileSync(M.path.join(mapListDir, mapListName.split(".")[0] + "-exported.html"), data);
                 break;
         }
