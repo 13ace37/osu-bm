@@ -1,9 +1,19 @@
 console.log(`Welcome to ${require("./package.json").name} v${require("./package.json").version}`)
 
-const M = {};
-["chalk", "cli-select", "win-select-folder", "win-select-file", "fs", "path", "open"].forEach(m => M[m] = require(m));
+const M = {
+    chalk: require("chalk"),        
+    "cli-select": require("cli-select"), 
+    "win-select-folder": require("win-select-folder"), 
+    "win-select-file": require("win-select-file"), 
+    fs: require("fs"), 
+    path: require("path"), 
+    open: require("open"), 
+};
+//["chalk", "cli-select", "win-select-folder", "win-select-file", "fs", "path", "open"].forEach(m => M[m] = require(m));
 
- 
+
+
+
 const F = {};
 
 F.fetchDir = (dir) => {
@@ -20,7 +30,8 @@ F.fetchDir = (dir) => {
             }
         });
         M.fs.writeFileSync(M.path.join(dir, "Songs-exported.html"), beatmapsDirect);
-        M.fs.writeFileSync(M.path.join(dir, "Songs-exported.txt"), beatmapsSets);
+        M.fs.writeFileSync(M.path.join(dir, "Songs-exported.txt"), beatmapsSets.slice(0, -1));
+        console.log("Songs exported to: " + dir);
     })
 }
 
@@ -53,7 +64,10 @@ F.handleMaplist = (mapList, mapListDir, mapListName) => {
     }).then((response) => {
         switch (response.id) {
             case 1:
-                mapList.forEach(map => {M.open("osu://b/" + map.split("/")[map.split("/").length - 1])});
+                mapList.forEach(map => {
+                    if (map.match(/^https?:\/\/osu\.ppy\.sh(\/b\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm)) M.open("osu://b/" + map.split("/")[map.split("/").length - 1])
+                    else M.open("osu://dl/" + map.split("/")[map.split("/").length - 1])
+                });
                 break;
             default:
                 let data = "";
@@ -71,12 +85,11 @@ F.fetchMaplist = (mapList) => {
     if (mapList.split(".")[mapList.split(".").length - 1] != "txt") return console.error(new Error("Maplist file needs to be .txt file"));
     let data = M.fs.readFileSync(mapList, "utf8").replace(/\r/g, "").split("\n");
     if (data.length <= 0) return console.error(new Error("Maplist empty"));
-    if (data.some(ln => !ln.match(/^https?:\/\/osu\.ppy\.sh(\/b\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm))) return console.error(new Error("Maplist beatmap format incorret"));
+    if (data.some(ln => !ln.match(/^https?:\/\/osu\.ppy\.sh(\/(b|s)\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm))) return console.error(new Error("Maplist beatmap format incorret"));
     F.handleMaplist(data, M.path.dirname(mapList), M.path.basename(mapList));
 }
 
 F.getImportFile = () => {
-    console.log("This feature currently only supports /b or /beatmapsets links /s links will follow!");
     M["win-select-file"]({root: "Desktop"})
       .then(result => {
         if (result === 'cancelled') process.exit();
@@ -86,7 +99,7 @@ F.getImportFile = () => {
 
 
 M["cli-select"]({
-    values: ["export maps", "import skins"],
+    values: ["export maps", "import maps"],
     defaultValue: 0,
     selected: '[~]',
     unselected: '[ ]',

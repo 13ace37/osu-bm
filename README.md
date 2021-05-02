@@ -36,9 +36,8 @@ this one creates two files in your mapfolder.
 
 ### Importing maps
 
-in the current state exported maps can not be imported again (will be added in a later version)
-
 - choose a `.txt` file containing map links separated by `\n` or `\r\n`
+- matching regex for importing `/^https?:\/\/osu\.ppy\.sh(\/(b|s)\/\d{1,10}|\/beatmapsets\/\d{1,10}#(osu|taiko|mania|fruits)\/\d{1,10})/gm`
 
 - export to html
 
