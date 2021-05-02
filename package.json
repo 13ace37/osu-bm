@@ -1,0 +1,22 @@
+{
+  "name": "osu-bm",
+  "version": "0.0.1-alpha",
+  "description": "beatmap utils for osu!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/13ace37/osu-bm.git"
+  },
+  "keywords": [
+    "osu"
+  ],
+  "author": "Riccardo \"ace\" H.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/13ace37/osu-bm/issues"
+  },
+  "homepage": "https://github.com/13ace37/osu-bm#readme"
+}
