@@ -1,7 +1,7 @@
 {
   "name": "osu-bm",
-  "version": "0.0.1-alpha",
-  "description": "beatmap utils for osu!",
+  "version": "0.0.2",
+  "description": "beatmap in- & exporter for the popular rhythm game osu!",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
