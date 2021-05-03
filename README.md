@@ -1,7 +1,7 @@
 # osu-bm
-beatmap utils for osu!
+beatmap in- & exporter for the popular rhythm game osu!
 
-This script is in a very early alpha stage. I assume no liability for any data loss or the like when using this script. The responsibility lies with the person who runs this script!
+__This script is in a very early alpha stage. I assume no liability for any data loss or the like when using this script. The responsibility lies with the person who runs this script!__
 
 
 ## Installation 
