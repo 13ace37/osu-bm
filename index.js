@@ -1,18 +1,15 @@
+/*global process*/
 console.log(`Welcome to ${require("./package.json").name} v${require("./package.json").version}`)
 
 const M = {
-    chalk: require("chalk"),        
-    "cli-select": require("cli-select"), 
-    "win-select-folder": require("win-select-folder"), 
-    "win-select-file": require("win-select-file"), 
-    fs: require("fs"), 
-    path: require("path"), 
-    open: require("open"), 
+    chalk: require("chalk"),
+    "cli-select": require("cli-select"),
+    "win-select-folder": require("win-select-folder"),
+    "win-select-file": require("win-select-file"),
+    fs: require("fs"),
+    path: require("path"),
+    open: require("open"),
 };
-//["chalk", "cli-select", "win-select-folder", "win-select-file", "fs", "path", "open"].forEach(m => M[m] = require(m));
-
-
-
 
 const F = {};
 
@@ -39,12 +36,11 @@ F.fetchDir = (dir) => {
 
 F.getOsuFolder = () => {
     M["win-select-folder"]({root: "MyComputer", description: "Select osu! root folder", newFolderButton: 0})
-      .then(result => {
-        if (result === 'cancelled') process.exit();
-        else F.fetchDir(result);
-      }).catch(err => console.error(err))
+        .then(result => {
+            if (result === 'cancelled') process.exit();
+            else F.fetchDir(result);
+        }).catch(err => console.error(err));
 }
-
 
 F.handleMaplist = (mapList, mapListDir, mapListName) => {
     console.log("Maplist fetched!\nHTML = clickable maplinks to file and direct download link\nDirect Download = download using osu!direct WARNING! REQUIRES OSU!SUPPORTER!!");
@@ -74,7 +70,7 @@ F.handleMaplist = (mapList, mapListDir, mapListName) => {
                     else M.open("osu://dl/" + mapList[i].split("/")[mapList[i].split("/").length - 1])
                 }
                 break;
-            default:
+            default: {
                 let data = "";
                 let n = "dl";
                 mapList.forEach(map => {
@@ -83,6 +79,7 @@ F.handleMaplist = (mapList, mapListDir, mapListName) => {
                 });
                 M.fs.writeFileSync(M.path.join(mapListDir, mapListName.split(".")[0] + "-exported.html"), data);
                 break;
+            }
         }
     }).catch(() => {
         process.exit();
@@ -100,12 +97,11 @@ F.fetchMaplist = (mapList) => {
 
 F.getImportFile = () => {
     M["win-select-file"]({root: "Desktop"})
-      .then(result => {
-        if (result === 'cancelled') process.exit();
-        else F.fetchMaplist(result);
-      }).catch(err => console.error(err))
+        .then(result => {
+            if (result === 'cancelled') process.exit();
+            else F.fetchMaplist(result);
+        }).catch(err => console.error(err))
 }
-
 
 M["cli-select"]({
     values: ["export maps", "import maps"],

@@ -25,5 +25,8 @@
     "open": "^8.0.7",
     "win-select-file": "^1.0.2",
     "win-select-folder": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0"
   }
 }
