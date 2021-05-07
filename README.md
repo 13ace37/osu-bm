@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/13ace37/osu-bm/workflows/Lint/badge.svg)](https://github.com/13ace37/osu-bm/actions)
+
 # osu-bm
 beatmap in- & exporter for the popular rhythm game osu!
 
