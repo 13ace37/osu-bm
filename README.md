@@ -5,6 +5,12 @@ beatmap in- & exporter for the popular rhythm game osu!
 
 __This script is in a very early alpha stage. I assume no liability for any data loss or the like when using this script. The responsibility lies with the person who runs this script!__
 
+## Why?
+
+Why not :D
+
+This script is not meant to be anything big, just a project I learned new things from. So this might be no use for you or others but I have used it for quite some time now. So in any way, my idea was to create a tool to download stuff directly from the official servers instead of torrenting some weird old-ass maps from sketchy sites. Not only do you rely on others to seed for you, but you might also run into old or outdated maps no one wants to play anymore. And you don't need to upload your maps to some random place. You can just export them to a text file send it to your friends and let them download it through the osu!direct download with their full internet speed, instead of servers you uploaded your files to.
+
 
 ## Installation 
 
